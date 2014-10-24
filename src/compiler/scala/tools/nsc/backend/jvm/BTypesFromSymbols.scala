@@ -197,6 +197,7 @@ class BTypesFromSymbols[G <: Global](val global: G) extends BTypes {
           case ThisType(sym)           => classBTypeFromSymbol(sym)
           case SingleType(_, sym)      => primitiveOrClassToBType(sym)
           case ConstantType(_)         => typeToBType(t.underlying)
+          case LiteralType(_)          => typeToBType(t.underlying)
           case RefinedType(parents, _) => parents.map(typeToBType(_).asClassBType).reduceLeft((a, b) => a.jvmWiseLUB(b).get)
           case AnnotatedType(_, t)     => typeToBType(t)
           case ExistentialType(_, t)   => typeToBType(t)

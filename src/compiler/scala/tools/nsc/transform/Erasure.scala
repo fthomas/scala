@@ -906,7 +906,7 @@ abstract class Erasure extends AddInterfaces
           (fn: @unchecked) match {
             case TypeApply(Select(qual, _), List(targ)) =>
               targ.tpe match {
-                case argTp@SingletonInstanceCheck(cmpOp, cmpArg) if sip23 => // compiler has an unsound asInstanceOf[global.type]...
+                case argTp@SingletonInstanceCheck(cmpOp, cmpArg) if settings.YliteralTypes => // compiler has an unsound asInstanceOf[global.type]...
                   atPos(tree.pos) {
                     gen.evalOnce(qual, currentOwner, currentUnit) { qual =>
                       If(Apply(Select(qual(), cmpOp), List(cmpArg)),

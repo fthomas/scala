@@ -1864,7 +1864,7 @@ trait Types
   abstract case class ConstantType(value: Constant) extends SingletonType with ConstantTypeApi {
     assert(underlying.typeSymbol != UnitClass)
 
-    override def underlying: Type = if (sip23 && value.isSuitableLiteralType) LiteralType(value) else value.tpe // SIP-23
+    override def underlying: Type = if (settings.YliteralTypes && value.isSuitableLiteralType) LiteralType(value) else value.tpe // SIP-23
     override def isTrivial: Boolean = true
     override def deconst: Type = underlying.deconst
     override def safeToString: String =

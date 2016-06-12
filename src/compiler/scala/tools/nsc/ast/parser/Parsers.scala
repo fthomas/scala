@@ -338,7 +338,6 @@ self =>
     }
     private def inScalaRootPackage = inScalaPackage && currentPackage == "scala"
 
-
     def parseStartRule: () => Tree
 
     def parseRule[T](rule: this.type => T): T = {
@@ -703,7 +702,7 @@ self =>
 
     def isExprIntro: Boolean = isExprIntroToken(in.token)
 
-    def isTypeIntroToken(token: Token): Boolean = (sip23 && isLiteralToken(token)) || (token match {
+    def isTypeIntroToken(token: Token): Boolean = (settings.YliteralTypes && isLiteralToken(token)) || (token match {
       case IDENTIFIER | BACKQUOTED_IDENT | THIS |
            SUPER | USCORE | LPAREN | AT => true
       case _ => false
@@ -1020,8 +1019,8 @@ self =>
         simpleTypeRest(in.token match {
           case LPAREN   => atPos(start)(makeSafeTupleType(inParens(types()), start))
           case USCORE   => wildcardType(in.skipToken())
-          case tok if sip23 && isLiteralToken(tok) => atPos(start){SingletonTypeTree(literal())} // SIP-23
-          case _ =>
+          case tok if settings.YliteralTypes && isLiteralToken(tok) => atPos(start){SingletonTypeTree(literal())} // SIP-23
+          case _        =>
             path(thisOK = false, typeOK = true) match {
               case r @ SingletonTypeTree(_) => r
               case r => convertToTypeId(r)
@@ -1103,7 +1102,7 @@ self =>
             mkOp(infixType(InfixMode.RightOp))
         }
         // SIP-23
-        def isNegatedLiteralType = sip23 && (
+        def isNegatedLiteralType = settings.YliteralTypes && (
           t match { // the token for `t` (Ident("-")) has already been read, thus `isLiteral` below is looking at next token (must be a literal)
             case Ident(name) if isLiteral => name == nme.MINUS.toTypeName // TODO: OPT? lift out nme.MINUS.toTypeName?
             case _ => false

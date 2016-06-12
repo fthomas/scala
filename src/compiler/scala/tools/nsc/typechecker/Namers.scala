@@ -868,7 +868,7 @@ trait Namers extends MethodSynthesis {
       // Are we inferring the result type of a stable symbol, whose type doesn't refer to a hidden symbol?
       // If we refer to an inaccessible symbol, let's hope widening will result in an expressible type.
       // (A LiteralType should be widened because it's too precise for a definition's type.)
-      val mayKeepSingletonType = !tpe.isInstanceOf[LiteralType] && sym.isStable && !refersToSymbolLessAccessibleThan(tpe, sym)
+      val mayKeepSingletonType = !tpe.isInstanceOf[LiteralType] && !tpe.isInstanceOf[ConstantType] && !tpe.isInstanceOf[UniqueConstantType] && sym.isStable && !refersToSymbolLessAccessibleThan(tpe, sym)
 
       // Only final vals may be constant folded, so deconst inferred type of other members.
       @inline def keepSingleton = if (sym.isFinal) tpe else tpe.deconst
@@ -876,7 +876,7 @@ trait Namers extends MethodSynthesis {
       // Only widen if the definition can't keep its inferred singleton type,
       // (Also keep singleton type if so indicated by the expected type `pt`
       //  OPT: 99.99% of the time, `pt` will be `WildcardType`).
-      if (mayKeepSingletonType || ((pt ne WildcardType) && !(tpe.widen <:< pt))) keepSingleton
+      if (mayKeepSingletonType || sym.isFinal || ((pt ne WildcardType) && !(tpe.widen <:< pt))) keepSingleton
       else tpe.widen
     }
 

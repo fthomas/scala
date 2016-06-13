@@ -1,0 +1,46 @@
+Errors which need to be addressed:
+partest --verbose test/files/run/t4742.scala -- done
+
+Error messages changed due to more precise types being reported:
+partest --verbose test/files/neg/logImplicits.scala
+partest --verbose test/files/neg/names-defaults-neg.scala
+partest --verbose test/files/neg/overload.scala
+partest --verbose test/files/neg/sammy_expected.scala
+partest --verbose test/files/neg/sammy_restrictions.scala
+partest --verbose test/files/neg/sammy_wrong_arity.scala
+partest --verbose test/files/neg/stringinterpolation_macro-neg.scala
+partest --verbose test/files/neg/t2488.scala
+partest --verbose test/files/neg/t3761-overload-byname.scala
+partest --verbose test/files/neg/t4457_1.scala
+partest --verbose test/files/neg/t4457_2.scala
+partest --verbose test/files/neg/t5553_2.scala
+partest --verbose test/files/neg/t5554.scala
+partest --verbose test/files/neg/t677.scala
+partest --verbose test/files/neg/t7752.scala
+partest --verbose test/files/neg/t8376
+partest --verbose test/files/neg/t8463.scala
+partest --verbose test/files/run/delambdafy_uncurry_byname_inline.scala
+partest --verbose test/files/run/delambdafy_uncurry_byname_method.scala
+partest --verbose test/files/run/repl-no-imports-no-predef.scala
+partest --verbose test/files/run/repl-parens.scala
+partest --verbose test/files/run/t7747-repl.scala
+
+Neg tests which correctly become pos with -Yliteral-types:
+partest --verbose test/files/neg/not-possible-cause.scala
+partest --verbose test/files/neg/any-vs-anyref.scala
+partest --verbose test/files/neg/t6263.scala
+partest --verbose test/files/neg/t900.scala
+
+Errors due to the addition of LiteralType:
+partest --verbose test/files/run/reflection-tags.scala
+partest --verbose test/files/run/reify-each-node-type.scala
+partest --verbose test/files/run/t8190.scala
+
+Error messages changed correctly:
+partest --verbose test/files/run/repl-colon-type.scala
+partest --verbose test/files/run/settings-parse.scala
+
+Noise:
+partest --verbose test/files/run/analyzerPlugins.scala
+partest --verbose test/files/scalacheck/nan-ordering.scala
+partest --verbose test/files/presentation/callcc-interpreter

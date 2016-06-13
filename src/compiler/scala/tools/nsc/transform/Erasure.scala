@@ -388,6 +388,7 @@ abstract class Erasure extends AddInterfaces
       case PolyType(_, _)                  => mapOver(tp)
       case MethodType(_, _)                => mapOver(tp)     // nullarymethod was eliminated during uncurry
       case ConstantType(Constant(_: Type)) => ClassClass.tpe  // all classOfs erase to Class
+      case ConstantType(value)             => value.tpe.deconst
       case _                               => tp.deconst
     }
   }

@@ -876,7 +876,7 @@ trait Namers extends MethodSynthesis {
       // Only widen if the definition can't keep its inferred singleton type,
       // (Also keep singleton type if so indicated by the expected type `pt`
       //  OPT: 99.99% of the time, `pt` will be `WildcardType`).
-      if (mayKeepSingletonType || sym.isFinal || ((pt ne WildcardType) && !(tpe.widen <:< pt))) keepSingleton
+      if (mayKeepSingletonType || (sym.isFinal && sym.isVal) || ((pt ne WildcardType) && !(tpe.widen <:< pt))) keepSingleton
       else tpe.widen
     }
 

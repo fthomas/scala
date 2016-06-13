@@ -1,5 +1,5 @@
 object Test extends App {
-  val x = 1
+  final val x = 1
   val y: x.type = 1
 
   implicitly[x.type =:= y.type]

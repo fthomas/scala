@@ -108,7 +108,7 @@ SimpleType  ::=  Path ‘.’ ‘type’
 
 A singleton type is of the form $p.$`type`, where $p$ is a
 path pointing to a value expected to [conform](06-expressions.html#expression-typing)
-to `scala.AnyRef`. The type denotes the set of values
+to `scala.Any`. The type denotes the set of values
 consisting of `null` and the value denoted by $p$
 (i.e., the value $v$ for which `v eq p`).
 
